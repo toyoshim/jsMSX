@@ -808,10 +808,11 @@ msx_interrupt = function()
 	    msx.resetAtNextInterrupt = false;
 	    msx.reset();
 	}
-	if (msx.vdp.imagedata)
+	if (msx.vdp.imagedata && document.getElementById('debug_int_line'))
 	  msx.vdp.imagedata.data[msx.interruptCounter*4+1]=255;//green line
 	
-	document.getElementById('interrupts').value=msx.interruptCounter;
+	if (document.getElementById('interrupts'))
+	  document.getElementById('interrupts').value=msx.interruptCounter;
 	//if (msx.interruptCounter%600==0) 
 	//msx.println('interrupt='+msx.interruptCounter+',ticks='+this.tstatesPerInterrupt+' cpu ticks/interrupt');
 	msx.interruptCounter++;
