@@ -111,6 +111,16 @@ function MSX(window,canvas,logbuf)
 	var biosrom = msx_loadurl(url);
 	this.println(biosrom.length+" bytes read");
 
+	if (canvasbiosrom == undefined) {
+	    var biosromlength = biosrom.length;
+	    var charcode=0;
+	    for (var i=0; i < biosromlength ; i++) {
+		charcode = biosrom.charCodeAt(i) & 0xff;
+		this.memoria[slot][i]=charcode;
+	    }
+	    return biosrom;
+	}
+
 	if (biosrom != '') {
 		canvasbiosrom.width=256;
 		canvasbiosrom.height=biosrom.length/256;
@@ -152,7 +162,15 @@ function MSX(window,canvas,logbuf)
 	var cartrom = msx_loadurl(url);
 	this.println(cartrom.length+" bytes read");
 
-	if (cartrom != '') {
+	if (canvascartrom == undefined) {
+	    var cartromlength = cartrom.length;
+	    var dbr = new Array(cartromlength);
+	    var charcode=0;	
+	    for (var i=0; i < cartromlength ; i++) {
+		charcode = cartrom.charCodeAt(i) & 0xff;
+		dbr[i*4]=charcode;
+	    }
+	} else if (cartrom != '') {
 		canvascartrom.width=256;
 		canvascartrom.height=cartrom.length/256;
 		//alert(cartrom.length+','+canvascartrom.width+','+canvascartrom.height);
