@@ -164,7 +164,7 @@ function MSX(window,canvas,logbuf)
 
 	if (canvascartrom == undefined) {
 	    var cartromlength = cartrom.length;
-	    var dbr = new Array(cartromlength);
+	    var dbr = new Array(cartromlength * 4);
 	    var charcode=0;	
 	    for (var i=0; i < cartromlength ; i++) {
 		charcode = cartrom.charCodeAt(i) & 0xff;
