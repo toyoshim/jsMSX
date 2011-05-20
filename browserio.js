@@ -38,13 +38,10 @@ function browserio() {
 	var i = url.indexOf(":");
 	var prot = '';
 	if (i>-1) prot= url.substring(0,i);
-	else {  prot='file';//default protocol
-		url+='file://';//adds file prefix by default
-	}
+	else prot='http';//default protocol
 	try {
 	    if (prot=="http" || prot=="https") { // http fetch
 
-	        netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
         	var req = new XMLHttpRequest();
         	req.open('GET', url, false);
         	// charset opt by Marcus Granado 2006 [mgran.blogspot.com]
@@ -58,7 +55,6 @@ function browserio() {
 		//removes prefix 'file://'		
 		url = url.substring(i+3,url.length); 
 		//alert(url);
-		netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
 		var f = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
 		f.initWithPath(url);//absolute file path
 		if (!f.exists()) { return ''; }
